@@ -1,0 +1,15 @@
+{
+    "devCommand": "uvicorn app:app --host 0.0.0.0 --port 8888",
+    "builds": [
+        {
+            "src": "mediaflow_proxy/main.py",
+            "use": "@vercel/python"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "mediaflow_proxy/main.py"
+        }
+    ]
+}
