@@ -24,6 +24,8 @@ RUN pip install --user --no-cache-dir poetry
 # Copy only requirements to cache them in docker layer
 COPY --chown=mediaflow_proxy:mediaflow_proxy pyproject.toml poetry.lock* /mediaflow_proxy/
 
+Run poetry lock
+
 # Project initialization:
 RUN poetry config virtualenvs.in-project true \
     && poetry install --no-interaction --no-ansi --no-root --only main
@@ -35,4 +37,4 @@ COPY --chown=mediaflow_proxy:mediaflow_proxy . /mediaflow_proxy
 EXPOSE 8888
 
 # Activate virtual environment and run the application with Gunicorn
-CMD ["poetry", "run", "gunicorn", "mediaflow_proxy.main:app", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8888", "--timeout", "120", "--max-requests", "500", "--max-requests-jitter", "200", "--access-logfile", "-", "--error-logfile", "-", "--log-level", "info"]
+CMD ["sh", "-c", "exec poetry run gunicorn mediaflow_proxy.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8888 --timeout 120 --max-requests 500 --max-requests-jitter 200 --access-logfile - --error-logfile - --log-level info --forwarded-allow-ips \"${FORWARDED_ALLOW_IPS:-127.0.0.1}\""]
