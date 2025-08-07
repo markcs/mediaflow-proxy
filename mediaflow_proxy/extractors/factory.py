@@ -11,6 +11,7 @@ from mediaflow_proxy.extractors.okru import OkruExtractor
 from mediaflow_proxy.extractors.streamtape import StreamtapeExtractor
 from mediaflow_proxy.extractors.supervideo import SupervideoExtractor
 from mediaflow_proxy.extractors.uqload import UqloadExtractor
+from mediaflow_proxy.extractors.vavoo import VavooExtractor
 from mediaflow_proxy.extractors.vixcloud import VixCloudExtractor
 from mediaflow_proxy.extractors.fastream import FastreamExtractor
 
@@ -29,6 +30,7 @@ class ExtractorFactory:
         "LiveTV": LiveTVExtractor,
         "DLHD": DLHDExtractor,
         "Vidio": VidioExtractor,
+        "Vavoo": VavooExtractor,
         "Fastream": FastreamExtractor
     }
 
